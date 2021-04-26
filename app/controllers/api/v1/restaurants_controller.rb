@@ -1,6 +1,6 @@
 class Api::V1::RestaurantsController < Api::V1::BaseController
-    before_action :set_restaurant, only: [ :show, :update ]
-    acts_as_token_authentication_handler_for User, except: [ :index, :show ]
+    before_action :set_restaurant, only: [ :show, :update, :destroy ]
+    acts_as_token_authentication_handler_for User, except: [ :index, :show]
     
     def index
         @restaurants = policy_scope(Restaurant)
@@ -27,12 +27,17 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
             render_error
         end
     end
+
+    def destroy
+        @restaurant.destroy
+        head :no_content
+    end
   
     private
   
     def set_restaurant
         @restaurant = Restaurant.find(params[:id])
-        authorize @restaurant  # For Pundit
+        authorize @restaurant
     end
 
     def restaurant_params
