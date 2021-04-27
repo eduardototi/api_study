@@ -13,8 +13,8 @@ class RestaurantPolicy < ApplicationPolicy
     record.user == user      
   end
 
-  def crate?
-    true
+  def create?
+    user.present?
   end
 
   def destroy?
