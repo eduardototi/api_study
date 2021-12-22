@@ -33,6 +33,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
         head :no_content
     end
   
+    
     private
   
     def set_restaurant
